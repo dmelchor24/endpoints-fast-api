@@ -1,0 +1,23 @@
+name: Endpoints de creación, actualización y eliminación de usuarios con FastAPI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-jmeter-tests:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Obtener el código del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # 2. Enviar evento repository_dispatch al repositorio de pruebas de JMeter
+      - name: Send repository_dispatch event to JMeter tests repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_JMETER_TESTS }}
+          repository: dmelchor24/endpoints-jmeter-tests
+          event-type: run-jmeter-tests
+          client-payload: '{"source_repo": "${{ github.repository }}", "commit": "${{ github.sha }}"}'
