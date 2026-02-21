@@ -22,6 +22,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*.pyc
 
 # Virtual Environment
 venv/
@@ -42,7 +43,7 @@ venv.bak/
 *.db
 *.sqlite
 *.sqlite3
-tasks.db
+postgres_data/
 
 # Environment variables
 .env

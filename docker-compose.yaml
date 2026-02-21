@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: fastapi_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fastapi_user_pg
+      POSTGRES_PASSWORD: fastapi_pass_pg
+      POSTGRES_DB: tasks_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: fastapi_app
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_URL: postgresql+asyncpg://fastapi_user_pg:fastapi_pass_pg@postgres:5432/tasks_db
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      
+volumes:
+  postgres_data:

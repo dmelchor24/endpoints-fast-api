@@ -109,16 +109,26 @@ Define los esquemas Pydantic para validación de datos:
    pip install -r requirements.txt
    ```
 
-4. **Ejecutar el servidor**
+4. **Ejecutar la base de datos y FastAPI**
    ```bash
-   uvicorn app.main:app --reload
+   docker compose up -d --build
    ```
 
-5. **Acceder a la aplicación**
+5. **Probar conexión**
+   ```bash
+   docker exec -it fastapi_postgres psql -U fastapi_user_pg -d tasks_db
+   ```   
+
+6. **Acceder a la aplicación**
    - API: http://localhost:8000
    - Documentación Swagger: http://localhost:8000/docs
    - Documentación ReDoc: http://localhost:8000/redoc
    - Health Check: http://localhost:8000/api/v1/health
+
+7. **Detener docker compose**
+   ```bash
+   docker compose down -v
+   ```
 
 ## Características del Código
 
