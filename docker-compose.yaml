@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres
     environment:
-      POSTGRES_URL: postgresql+asyncpg://fastapi_user_pg:fastapi_pass_pg@postgres:5432/tasks_db
+      DATABASE_URL: postgresql+asyncpg://fastapi_user_pg:fastapi_pass_pg@postgres:5432/tasks_db
     ports:
       - "8000:8000"
     volumes:
