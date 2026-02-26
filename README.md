@@ -111,7 +111,7 @@ Define los esquemas Pydantic para validación de datos:
 
 4. **Ejecutar la base de datos y FastAPI**
    ```bash
-   docker compose up -d --build
+   docker compose up -d
    ```
 
 5. **Probar conexión**
