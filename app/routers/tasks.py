@@ -7,29 +7,29 @@ from app.crud import task as crud
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
-@router.post("/", response_model=TaskResponse, summary="1. Crear tarea")
+@router.post("/", response_model=TaskResponse, status_code=201, summary="1. Crear tarea")
 async def create(data: TaskCreate, db: AsyncSession = Depends(get_db)):
     return await crud.create_task(db, data)
 
-@router.get("/", response_model=list[TaskResponse], summary="2. Listar tareas")
+@router.get("/", response_model=list[TaskResponse], status_code=200, summary="2. Listar tareas")
 async def list_tasks(db: AsyncSession = Depends(get_db)):
     return await crud.get_tasks(db)
 
-@router.get("/{task_id}", response_model=TaskResponse, summary="3. Obtener tarea por ID")
+@router.get("/{task_id}", response_model=TaskResponse, status_code=200, summary="3. Obtener tarea por ID")
 async def get(task_id: int, db: AsyncSession = Depends(get_db)):
     task = await crud.get_task(db, task_id)
     if not task:
         raise HTTPException(404, "Tarea no encontrada")
     return task
 
-@router.put("/{task_id}", response_model=TaskResponse, summary="4. Actualizar tarea por ID")
+@router.put("/{task_id}", response_model=TaskResponse, status_code=200, summary="4. Actualizar tarea por ID")
 async def update(task_id: int, data: TaskUpdate, db: AsyncSession = Depends(get_db)):
     task = await crud.update_task(db, task_id, data)
     if not task:
         raise HTTPException(404, "Tarea no encontrada")
     return task
 
-@router.delete("/{task_id}", response_model=MessageResponse, summary="5. Eliminar tarea por ID")
+@router.delete("/{task_id}", response_model=MessageResponse, status_code=200, summary="5. Eliminar tarea por ID")
 async def delete(task_id: int, db: AsyncSession = Depends(get_db)):
     deleted = await crud.delete_task(db, task_id)
     if not deleted:

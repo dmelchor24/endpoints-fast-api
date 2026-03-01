@@ -25,7 +25,7 @@ class TaskResponse(BaseModel):
 # Esquema para crear una nueva tarea
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200, description="Título de la tarea")
-    description: Optional[str] = Field(None, max_length=1000, description="Descripción detallada")
+    description: str = Field(..., min_length=1, max_length=1000, description="Descripción detallada")
     
     class Config:
         from_attributes = True
@@ -39,8 +39,8 @@ class TaskCreate(BaseModel):
 
 # Esquema para actualizar una tarea existente
 class TaskUpdate(BaseModel):
-    title: Optional[str] = Field(None, min_length=1, max_length=200, description="Título de la tarea")
-    description: Optional[str] = Field(None, max_length=1000, description="Descripción detallada")
+    title: str = Field(..., min_length=1, max_length=200, description="Título de la tarea")
+    description: str = Field(..., min_length=1, max_length=1000, description="Descripción detallada")
     
     class Config:
         from_attributes = True
